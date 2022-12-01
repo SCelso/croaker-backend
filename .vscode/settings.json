@@ -1,0 +1,8 @@
+{
+  "material-icon-theme.folders.associations": {
+    "dto": "Less",
+    "entities": "class",
+    "postgres": "database",
+    "strategies": "rules"
+  }
+}
