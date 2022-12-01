@@ -9,8 +9,10 @@ export class CreateUserDto {
     @IsString()
     @MinLength(1)
     nickname: string;
+
     @IsString()
     biography: string;
+
     //TODO:  profilePicture:
     @Type(() => Date)
     @IsDate()
