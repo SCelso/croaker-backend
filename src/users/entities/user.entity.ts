@@ -82,12 +82,12 @@ export class User {
         }
     }
 
-    @BeforeInsert()
-    checkProfilePictureInsert() {
-        if (!this.profilePicture) {
-            this.profilePicture = new ProfilePicture();
-        }
-    }
+    // @BeforeInsert()
+    // checkProfilePictureInsert() {
+    //     if (!this.profilePicture) {
+    //         this.profilePicture = new ProfilePicture();
+    //     }
+    // }
 
     @BeforeUpdate()
     checkDateUpdate() {

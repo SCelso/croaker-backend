@@ -44,7 +44,7 @@ export class UsersService {
             })
             .getMany();
 
-        if (!user) {
+        if (user.length < 1) {
             throw new NotFoundException(`Usuario no encontrado`);
         }
         return user;
