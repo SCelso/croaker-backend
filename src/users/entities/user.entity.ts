@@ -1,8 +1,10 @@
+import { ProfilePicture } from './profile-picture.entity';
 import {
     BeforeInsert,
     BeforeUpdate,
     Column,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,8 +17,8 @@ export class User {
     @Column('text', { unique: true })
     nickname: string;
     @Column('text')
-    biography: string;
-    //TODO:  profilePicture:
+    biography?: string;
+
     @Column('date')
     birthday: Date;
     @Column('date')
@@ -29,6 +31,12 @@ export class User {
     banned: boolean;
     @Column()
     isActive: boolean;
+
+    @OneToMany(() => ProfilePicture, (profilePicture) => profilePicture.user, {
+        cascade: true,
+        eager: true,
+    })
+    profilePicture: ProfilePicture;
 
     //TODO: POSTS
 
@@ -71,6 +79,13 @@ export class User {
     checkActiveInsert() {
         if (!this.isActive) {
             this.isActive = true;
+        }
+    }
+
+    @BeforeInsert()
+    checkProfilePictureInsert() {
+        if (!this.profilePicture) {
+            this.profilePicture = new ProfilePicture();
         }
     }
 

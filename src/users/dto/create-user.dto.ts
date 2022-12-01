@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsString, MinLength } from 'class-validator';
+import { IsDate, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
     @IsString()
@@ -9,6 +9,9 @@ export class CreateUserDto {
     @IsString()
     @MinLength(1)
     nickname: string;
+    @IsString()
+    @IsOptional()
+    biography: string;
     //TODO:  profilePicture:
     @Type(() => Date)
     @IsDate()
