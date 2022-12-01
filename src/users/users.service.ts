@@ -3,6 +3,7 @@ import {
     Injectable,
     InternalServerErrorException,
     Logger,
+    NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -36,8 +37,22 @@ export class UsersService {
         return `This action returns a #${id} user`;
     }
 
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+    async update(id: string, updateUserDto: UpdateUserDto) {
+        const user = await this.userRepository.preload({
+            id: id,
+            ...updateUserDto,
+        });
+
+        if (!user) {
+            throw new NotFoundException(`No se ha encontrado el usuario`);
+        }
+
+        try {
+            await this.userRepository.save(user);
+            return user;
+        } catch (error) {
+            this.exceptionHandler(error);
+        }
     }
 
     remove(id: string) {
