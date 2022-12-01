@@ -29,12 +29,25 @@ export class UsersService {
         }
     }
 
-    findAll() {
-        return `This action returns all users`;
+    async findAll() {
+        const users = await this.userRepository.find();
+        return users;
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} user`;
+    async findOne(term: string) {
+        const queryBuilder = this.userRepository.createQueryBuilder();
+
+        const user = await queryBuilder
+            .where('name=:name or nickname=:nickname', {
+                name: term,
+                nickname: term,
+            })
+            .getMany();
+
+        if (!user) {
+            throw new NotFoundException(`Usuario no encontrado`);
+        }
+        return user;
     }
 
     async update(id: string, updateUserDto: UpdateUserDto) {
