@@ -27,6 +27,10 @@ export class User {
     admin: boolean;
     @Column()
     banned: boolean;
+    @Column()
+    isActive: boolean;
+
+    //TODO: POSTS
 
     @BeforeInsert()
     checkCreatedOnInsert() {
@@ -39,6 +43,34 @@ export class User {
     checkUpdatedOnInsert() {
         if (!this.lastUpdated) {
             this.lastUpdated = new Date();
+        }
+    }
+
+    @BeforeInsert()
+    checkBiographyInsert() {
+        if (!this.biography) {
+            this.biography = '';
+        }
+    }
+
+    @BeforeInsert()
+    checkAdminInsert() {
+        if (!this.admin) {
+            this.admin = false;
+        }
+    }
+
+    @BeforeInsert()
+    checkBannedInsert() {
+        if (!this.banned) {
+            this.banned = false;
+        }
+    }
+
+    @BeforeInsert()
+    checkActiveInsert() {
+        if (!this.isActive) {
+            this.isActive = true;
         }
     }
 
