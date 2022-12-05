@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { User } from 'src/users/entities/user.entity';
 
 import { AuthService } from './auth.service';
 import { Auth } from './decorators/auth.decorator';
 
 import { GetUser } from './decorators/get-user.decorator';
 
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserDto } from './dto';
 
-import { User } from './entities/user.entity';
 import { ValidRoles } from './interfaces/valid-roles';
 
 @Controller('auth')
@@ -24,8 +24,7 @@ export class AuthController {
     }
 
     @Get('hola')
-    //@SetMetadata('roles', ['admin', 'super-user'])
-    @Auth()
+    @Auth(ValidRoles.admin)
     privateRoute3(@GetUser() user: User) {
         return { ok: true, user };
     }

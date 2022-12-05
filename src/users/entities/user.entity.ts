@@ -3,6 +3,7 @@ import {
     BeforeUpdate,
     Column,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -36,8 +37,6 @@ export class User {
     @Column('date')
     lastUpdated: Date;
     @Column('bool', { default: false })
-    admin: boolean;
-    @Column('bool', { default: false })
     banned: boolean;
     @Column('bool', { default: true })
     isActive: boolean;
@@ -51,6 +50,7 @@ export class User {
     @BeforeInsert()
     checkFieldsInsert() {
         this.lastUpdated = new Date();
+        this.name = this.name.toLowerCase().trim();
 
         this.email = this.email.toLowerCase().trim();
     }
