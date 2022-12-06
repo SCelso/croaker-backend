@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
@@ -38,7 +37,7 @@ export class PostsService {
     }
 
     async findOne(id: string) {
-        const post = await this.postRepository.findOneBy({ id });
+        const post: Post = await this.postRepository.findOneBy({ id: id });
         if (!post)
             throw new NotFoundException(`Post con id: ${id} no encontrado`);
 
@@ -47,7 +46,7 @@ export class PostsService {
 
     async remove(id: string, user: User) {
         const post = await this.findOne(id);
-
+        console.log(post);
         if (post.user.id != user.id && !user.roles.includes('admin')) {
             throw new UnauthorizedException('No estás autorizado');
         }

@@ -42,10 +42,7 @@ export class User {
     @Column('bool', { default: true })
     isActive: boolean;
 
-    @OneToMany(() => Post, (post) => post.user, {
-        cascade: true,
-        eager: true,
-    })
+    @OneToMany(() => Post, (post) => post.user)
     posts: Post[];
 
     //TODO: POSTS
