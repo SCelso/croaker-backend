@@ -20,6 +20,11 @@ export class UsersService {
         private readonly dataSource: DataSource,
     ) {}
 
+    findOneUser(id: string) {
+        const user = this.userRepository.findOneBy({ id });
+        return user;
+    }
+
     findAll() {
         return `This action returns all users`;
     }

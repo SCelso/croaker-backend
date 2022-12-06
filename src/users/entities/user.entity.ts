@@ -1,3 +1,4 @@
+import { Post } from 'src/posts/entities/post.entity';
 import {
     BeforeInsert,
     BeforeUpdate,
@@ -40,6 +41,12 @@ export class User {
     banned: boolean;
     @Column('bool', { default: true })
     isActive: boolean;
+
+    @OneToMany(() => Post, (post) => post.user, {
+        cascade: true,
+        eager: true,
+    })
+    posts: Post[];
 
     //TODO: POSTS
     @BeforeInsert()

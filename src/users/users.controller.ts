@@ -14,7 +14,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 import { Auth, GetUser } from 'src/auth/decorators';
 import { ValidRoles } from 'src/auth/interfaces';
-import { Request } from 'express';
 import { User } from './entities/user.entity';
 
 @Controller('users')
@@ -33,6 +32,11 @@ export class UsersController {
         return this.usersService.find(term);
     }
 
+    @Get('findOne/:id')
+    @Auth()
+    findOneUser(@Param('id', ParseUUIDPipe) id: string) {
+        return this.usersService.findOneUser(id);
+    }
     @Patch(':id')
     @Auth()
     update(

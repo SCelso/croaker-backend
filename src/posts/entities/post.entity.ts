@@ -1,10 +1,16 @@
 // import { User } from 'src/auth/entities/user.entity';
-import { Entity, ManyToOne, OneToMany } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Post {
-    // @ManyToOne(() => User, (user) => user.posts, {
-    //     onDelete: 'CASCADE',
-    // })
-    // user: User;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+    @Column()
+    content: string;
+
+    @ManyToOne(() => User, (user) => user.posts, {
+        eager: false,
+    })
+    user: User;
 }
