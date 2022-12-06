@@ -26,7 +26,7 @@ export class UsersService {
     }
 
     findAll() {
-        return `This action returns all users`;
+        return `This action returns all users`; //TODO:
     }
 
     async find(term: string) {
@@ -84,7 +84,16 @@ export class UsersService {
         );
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} user`;
+    //TODO: banned
+
+    async remove(id: string) {
+        const user = await this.userRepository.preload({ id: id });
+
+        user.isActive = false;
+        try {
+            await this.userRepository.save(user);
+        } catch (error) {
+            this.handleDBExceptions(error);
+        }
     }
 }

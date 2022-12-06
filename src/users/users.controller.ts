@@ -23,7 +23,7 @@ export class UsersController {
     @Get()
     @Auth(ValidRoles.admin)
     findAll() {
-        return this.usersService.findAll();
+        return this.usersService.findAll(); //TODO:
     }
 
     @Get(':term')
@@ -49,7 +49,8 @@ export class UsersController {
     }
 
     @Delete(':id')
+    @Auth()
     remove(@Param('id') id: string) {
-        return this.usersService.remove(+id);
+        return this.usersService.remove(id);
     }
 }
