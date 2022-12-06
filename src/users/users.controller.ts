@@ -6,7 +6,6 @@ import {
     Param,
     Delete,
     ParseUUIDPipe,
-    Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
